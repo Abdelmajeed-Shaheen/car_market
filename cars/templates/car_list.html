@@ -1,19 +1,39 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Car List</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block title  %}
+  Cars List
+{% endblock title %}
+{% block button %}
+<a href="{% url 'car-home' %}" class="btn btn-primary my-2 my-sm-0 mr-2">Home</a>
+<a href="{% url 'car-create' %}" class="btn btn-success my-2 my-sm-0">Create</a>
+
+{% endblock button %}
+{% block content %}
+
+<div class="container mt-5">
+
+<div class="row mt-5">
+  {% if messages %}
+          {% for message in messages %}
+            {{message}}
+          {% endfor %}
+      {% endif %}
+      </div>
+<div class="row mt-5">
 	{% for car in cars %}
-		<a href="{{car.get_absolute_url}}">
-			<h1>
-				{{car.make}} - {{car.model}}
-				<small>
-					{{car.year}}
-				</small>
-			</h1>
-		</a>
-		<hr>
+  <div class="col-md-4 order-lg-3 mt-4 mb-2 pl-5">
+        <div class="card h-100" style="width: 18rem;">
+          {% if car.img %}
+          <img src="{{ car.img.url }}" class="card-img-top" alt="{{car.make}}" style="width: 100%;height: 15vw;object-fit: cover;">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{car.make}}</h5>
+            <p class="card-text">{{car.model}}</p>
+              <p class="card-text">{{car.year}} </p>
+            <a href="{% url 'car-detail' car.id %}" class="btn btn-primary my-2 my-sm-0">Details</a>
+          </div>
+        </div>
+      </div>
 	{% endfor %}
-</body>
-</html>
+  </div>
+  </div>
+{% endblock content %}

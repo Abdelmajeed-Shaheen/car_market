@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title  %}
+  Update Car
+{% endblock title %}
+{% block button %}
+<a href="{% url 'car-list' %}" class="btn btn-outline-success my-2 my-sm-0 mr-2">List</a>
+<a href="{% url 'car-create' %}" class="btn btn-success my-2 my-sm-0">Create</a>
+{% endblock button %}
+{% block content %}
+      <div class="container text-center pt-5">
+        <div class="row mt-5">
+          {% if messages %}
+                  {% for message in messages %}
+                    {{message}}
+                  {% endfor %}
+              {% endif %}
+              </div>
+        <div class="row mt-5">
+          <div class="col-md-3"></div>
+          <div class= "col-md-6 ">
+            <div class="card text-center">
+  <div class="card-header">
+    <form action="{% url 'car-update' car.id %}" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+<div class="form-group">
+  <label >Make</label>
+  <input type="text" class="form-control" id="{{ form.mmake.id_for_label}}" name="make" required value="{{ form.make.value}}"/>
+</div>
+<div class="form-group">
+  <label >Model</label>
+  <input type="text" class="form-control" id="{{ form.model.id_for_label_ }}" name="model" required value="{{ form.model.value}}"/>
+</div>
+<div class="form-group">
+ <label >Upload image</label>
+ <input type="file" class="form-control-file" id="{{ form.img.id_for_label }} "name="img"  value="{{ form.img.value}}"/>
+</div>
+<div class="form-group">
+ <label >Year</label>
+ <input type="number" class="form-control" id="{{ form.year.id_for_label }}"  name="year" required value="{{ form.year.value}}"/>
+</div>
+<input class="btn btn-success my-2 my-sm-0" type="submit" value="update">
+<a href="{% url 'car-detail' car.id %}" class="btn btn-danger my-2 my-sm-0">Cancel</a>
+</form>
+      </div>
+        </div>
+          </div>
+    </div>
+      </div>
+
+{% endblock content %}
